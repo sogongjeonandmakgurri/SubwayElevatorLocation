@@ -16,7 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SubwayLocationController {
 
-    private final SubwayLocationService subwayLocationService;
+    private final SubwayLocationService subwayLocationService ;
 
     @GetMapping("/subway/loc")
     public List<SubwayLocationResponseDto> currentSubwayLocation(@RequestParam Map<String, Double> lng, Map<String, Double> lat){

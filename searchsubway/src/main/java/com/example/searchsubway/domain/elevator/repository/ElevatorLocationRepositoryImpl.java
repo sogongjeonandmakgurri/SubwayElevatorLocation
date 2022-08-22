@@ -15,6 +15,7 @@ public class ElevatorLocationRepositoryImpl implements ElevatorLocationCustomRep
     private final JPAQueryFactory queryFactory;
 
 
+    // 외부 엘리베이터 위치 조회
     @Override
     public List<ElevatorLocation> findExternalEVBySubName(int line, String sub_name) {
         QElevatorLocation elevatorLocation=QElevatorLocation.elevatorLocation;
@@ -27,7 +28,7 @@ public class ElevatorLocationRepositoryImpl implements ElevatorLocationCustomRep
                 .fetch();
     }
 
-    //
+    // 내부 엘리베이터 위치 조회
     @Override
     public List<ElevatorLocation> findInternalEVBySubName(int line, String sub_name) {
         QElevatorLocation elevatorLocation=QElevatorLocation.elevatorLocation;
@@ -35,7 +36,7 @@ public class ElevatorLocationRepositoryImpl implements ElevatorLocationCustomRep
         return queryFactory
                 .select(elevatorLocation)
                 .from(elevatorLocation)
-                .where(elevatorLocation.sub_name.eq(sub_name).and(elevatorLocation.elevator_loc.contains("상행")
+                .where(elevatorLocation.sub_name.eq(sub_name).and(elevatorLocation.line.eq(line)).and(elevatorLocation.elevator_loc.contains("상행")
                         .or(elevatorLocation.elevator_loc.contains("하행"))
                         .or(elevatorLocation.elevator_loc.contains("외선"))
                         .or(elevatorLocation.elevator_loc.contains("내선"))))
